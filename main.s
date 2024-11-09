@@ -1,0 +1,23 @@
+	AREA vectors, CODE, READONLY
+	EXPORT __Vectors
+__Vectors DCD 0x20008000
+	DCD Reset_Handler
+	AREA constants, CODE, READONLY
+SRC	DCD 0x11223344, 0x55667788
+	AREA data, ALIGN=2
+DST	SPACE 128
+THUMB
+AREA program, CODE, READONLY
+EXPORT Reset_Handler
+Reset_Handler
+LDR R0, =__main
+BLX R0
+
+__main 
+LDR R0, =SRC
+LDR R1, [R0]
+LDR R2, =DST
+STR R1, [R2]
+B
+ALIGN
+END
